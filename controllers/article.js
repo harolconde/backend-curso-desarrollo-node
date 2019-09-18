@@ -3,6 +3,7 @@
 let validator = require('validator')
 let Article = require('../models/article')
 
+//const article = new Article()
 let controller = {
     datosCurso: (req, res) => {
         let hola = req.body.hola = 'Harol Conde'
@@ -37,15 +38,15 @@ let controller = {
                 // Guardar los datos en la db
                 article.save((err, articleStored) => {
                     // En caso de error
-                     if(err || !articleStored){
-                         res.status(404).send({
-                             status: 'Error',
-                             message: 'El articulo no se ha guardado'
-                         })
-                     }
+                    if (err || !articleStored) {
+                        res.status(404).send({
+                            status: 'Error',
+                            message: 'El articulo no se ha guardado'
+                        })
+                    }
 
-                     // Guardado con exito
-                     res.status(200).send({
+                    // Guardado con exito
+                    res.status(200).send({
                         status: 'success',
                         article: articleStored
                     })
@@ -63,6 +64,29 @@ let controller = {
             })
         }
 
+    },
+
+    // Traer todos los articulos
+    getArticles: (req, res) => {
+        
+        Article.find({}).sort('-_id').exec((err, articles) => {
+            if (err) {
+                res.status(500).send({
+                    status: 'Error',
+                    message: 'Error al devolver los articulos'
+                })
+            }
+            if(!articles){
+                res.status(404).send({
+                    status: 'Error',
+                    message: 'No hay articulos para mostrar'
+                })
+            }
+            res.status(200).send({
+                status: 'Success',
+                articles
+            })
+        })
     }
 }
 
