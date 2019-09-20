@@ -13,7 +13,9 @@ router.post('/datos-del-curso', articleController.datosCurso)
 
 // Rutas utiles de la app
 router.post('/guardar-articulo', articleController.saveArticle)
-router.get('/articulos', articleController.getArticles)
-
+router.get('/articulos/:last?', articleController.getArticles)
+router.get('/articulo/:id', articleController.getArticle)
+router.put('/articulo-update/:id', articleController.updateArticle)
+router.delete('/articulo/:id', articleController.deleteArticle)
 // Exportar el modulo
 module.exports = router
