@@ -187,6 +187,14 @@ let controller = {
                 article: articleRemoved
             })
         })
+    },
+
+    // Subida de archivos al server
+    uploadImage: (req, res) => {
+        res.status(200).send({
+            status: 'success',
+            message: 'Se ha subido con exito el archivo de imagen'
+        })
     }
 }
 
