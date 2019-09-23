@@ -13,8 +13,18 @@ let article_routes = require('./routes/article')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// CORS
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Permitir que cualquer cliente haga las peticiones ajax
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 // Agregar una nueva ruta 
-app.use('/api/',article_routes)
+app.use('/api/', article_routes)
 
 // Exportar el modulo para usar en mi index.js
 module.exports = app
